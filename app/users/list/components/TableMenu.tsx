@@ -3,10 +3,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import IconMenu from '../../../../public/icons/icons8-menu-2-48.png';
 import Link from 'next/link';
+import { usersServices } from '@/services/users';
+import { useRouter } from 'next/navigation';
 
-const TableMenu = ({ id }: { id: string }) => {
+const TableMenu = ({ id, fetch }: { id: number; fetch: () => void }) => {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLUListElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -22,8 +25,13 @@ const TableMenu = ({ id }: { id: string }) => {
     };
   }, []);
 
-  const handleItemClick = () => {
+  const handleItemClickEdit = () => {
     setOpen(false);
+  };
+  const handleItemClickDelete = () => {
+    usersServices.deleteUser(id);
+    setOpen(false);
+    fetch();
   };
 
   return (
@@ -43,7 +51,7 @@ const TableMenu = ({ id }: { id: string }) => {
             <Link
               href={'/users/edit/' + id}
               className="menu-title block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-base-100 cursor-pointer"
-              onClick={handleItemClick}
+              onClick={handleItemClickEdit}
             >
               Edit
             </Link>
@@ -51,7 +59,7 @@ const TableMenu = ({ id }: { id: string }) => {
           <li>
             <a
               className="menu-title block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-base-100 cursor-pointer"
-              onClick={handleItemClick}
+              onClick={handleItemClickDelete}
             >
               Delete
             </a>

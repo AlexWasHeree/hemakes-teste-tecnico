@@ -1,65 +1,24 @@
-import React from 'react';
-import IconSearch from '../../../public/icons/icons8-pesquisar-30.png';
-import TableMenu from './components/TableMenu';
+'use client';
 
-const usersDB = [
-  {
-    id: '1',
-    name: 'Alice',
-    image: 'https://img.daisyui.com/tailwind-css-component-profile-2@56w.png',
-    role: 'UI Designer',
-    verified: true,
-    status: 'Active',
-    company: 'Hemakes',
-  },
-  {
-    id: '2',
-    name: 'Bob',
-    image: 'https://img.daisyui.com/tailwind-css-component-profile-2@56w.png',
-    role: 'HR Manager',
-    verified: false,
-    status: 'Idle',
-    company: 'Wemake',
-  },
-  {
-    id: '3',
-    name: 'Charlie',
-    image: 'https://img.daisyui.com/tailwind-css-component-profile-2@56w.png',
-    role: 'Leader',
-    verified: true,
-    status: 'Active',
-    company: 'Youmake',
-  },
-  {
-    id: '4',
-    name: 'Diana',
-    image: 'https://img.daisyui.com/tailwind-css-component-profile-2@56w.png',
-    role: 'Developer',
-    verified: true,
-    status: 'Banned',
-    company: 'Hemakes',
-  },
-  {
-    id: '5',
-    name: 'Eric',
-    image: 'https://img.daisyui.com/tailwind-css-component-profile-2@56w.png',
-    role: 'UI Designer',
-    verified: true,
-    status: 'Active',
-    company: 'Wemake',
-  },
-  {
-    id: '5',
-    name: 'Eric',
-    image: 'https://img.daisyui.com/tailwind-css-component-profile-2@56w.png',
-    role: 'UI Designer',
-    verified: true,
-    status: 'Active',
-    company: 'Wemake',
-  },
-];
+import React, { useEffect, useState } from 'react';
+import IconSearch from '../../../public/icons/icons8-pesquisar-30.png';
+import AddIcon from '../../../public/icons/icons8-soma-64.png';
+import TableMenu from './components/TableMenu';
+import Link from 'next/link';
+import { User, usersServices } from '@/services/users';
 
 const UserList = () => {
+  const [usersDB, setUsersDB] = useState<User[]>([]);
+
+  const fetchData = () => {
+    const users = usersServices.getAllUsers();
+    setUsersDB(users);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="overflow-x-auto">
       <div className="flex justify-between px-8 py-8">
@@ -67,6 +26,12 @@ const UserList = () => {
           <img src={IconSearch.src} alt="Search Icon" className="w-6 h-6" />
           <input type="text" className="grow" placeholder="Search User..." />
         </label>
+        <Link href="/users/create">
+          <button className="btn btn-primary">
+            <img src={AddIcon.src} alt="Add icon" className="w-7" />
+            Create User
+          </button>
+        </Link>
       </div>
       <table className="table mb-20">
         <thead>
@@ -77,8 +42,8 @@ const UserList = () => {
               </label>
             </th>
             <th>Name</th>
-            <th>Job</th>
-            <th>Favorite color</th>
+            <th>Company</th>
+            <th>Role</th>
             <th>Verified</th>
             <th>Status</th>
             <th></th>
@@ -110,7 +75,7 @@ const UserList = () => {
               <td>{user.verified ? 'Yes' : 'No'}</td>
               <td>{user.status}</td>
               <th>
-                <TableMenu id={user.id} />
+                <TableMenu id={user.id} fetch={fetchData} />
               </th>
             </tr>
           ))}

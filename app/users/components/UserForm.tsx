@@ -2,15 +2,39 @@
 
 import { useState } from 'react';
 import NoImageIcon from '../../../public/icons/no-image-icon-6.png';
+import { User, usersServices } from '@/services/users';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
-const UserForm = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    image: '',
-    role: '',
-    verified: false,
-    status: '',
-    company: '',
+interface FormData {
+  name: string;
+  image: string;
+  role: string;
+  verified: boolean;
+  status: string;
+  company: string;
+}
+
+interface UserFormProps {
+  type: 'edit' | 'create';
+  id?: number;
+  user?: User;
+}
+
+const UserForm = ({ type, id, user }: UserFormProps) => {
+  if (type === 'edit') {
+    console.log('edit mode');
+  }
+
+  const router = useRouter();
+
+  const [formData, setFormData] = useState<FormData>({
+    name: user ? user.name : '',
+    image: user ? user.image : '',
+    role: user ? user.role : '',
+    verified: user ? user.verified : false,
+    status: user ? user.status : '',
+    company: user ? user.company : '',
   });
 
   const handleChange = (e: any) => {
@@ -25,11 +49,50 @@ const UserForm = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(formData);
+    const newUser: User = {
+      id: Date.now(),
+      name: formData.name,
+      image: formData.image,
+      role: formData.role as User['role'],
+      verified: formData.verified,
+      status: formData.status as User['status'],
+      company: formData.company as User['company'],
+    };
+    const editedUser: User = {
+      /* @ts-ignore: id can never be undefined as long as type is "edit" */
+      id: id,
+      name: formData.name,
+      image: formData.image,
+      role: formData.role as User['role'],
+      verified: formData.verified,
+      status: formData.status as User['status'],
+      company: formData.company as User['company'],
+    };
+
+    if (type === 'create') {
+      usersServices.addUser(newUser);
+    } else if (type === 'edit') {
+      /* @ts-ignore: id can never be undefined as long as type is "edit" */
+      usersServices.editUser(id, editedUser);
+    }
+    const allUsers = usersServices.getAllUsers();
+    console.log('todos os usuarios:', allUsers);
+
+    setTimeout(() => {
+      router.push('/users/list');
+    }, 500);
   };
 
   return (
     <div className="container mx-auto max-w-xl">
+      <div className="flex justify-between mb-8">
+        <h1>{type === 'edit' ? 'Edit User' : 'Create User'}</h1>
+        {type === 'edit' ? (
+          <Link href="/users/list">
+            <button className="btn btn-error w-48">Cancel</button>
+          </Link>
+        ) : null}
+      </div>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-2 gap-x-6">
           <div>
