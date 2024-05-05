@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import NoImageIcon from '../../../public/icons/no-image-icon-6.png';
 
 const UserForm = () => {
   const [formData, setFormData] = useState({
@@ -65,34 +66,49 @@ const UserForm = () => {
             </select>
           </div>
         </div>
-        <div>
-          <label htmlFor="image" className="block mb-1 font-medium">
-            Image URL
-          </label>
-          <input
-            type="text"
-            id="image"
-            name="image"
-            value={formData.image}
-            onChange={handleChange}
-            className="input input-bordered w-full max-w-xl"
-            placeholder="Enter image URL"
-            required
-          />
-        </div>
+        <div className="grid grid-cols-2 gap-x-6">
+          <div className="space-y-6">
+            <div>
+              <label htmlFor="image" className="block mb-1 font-medium">
+                Image URL
+              </label>
+              <input
+                type="text"
+                id="image"
+                name="image"
+                value={formData.image}
+                onChange={handleChange}
+                className="input input-bordered w-full max-w-xl"
+                placeholder="Enter image URL"
+                required
+              />
+            </div>
 
-        <div>
-          <label htmlFor="verified" className="flex items-center">
-            <p className="font-medium">Verified</p>
-            <input
-              type="checkbox"
-              id="verified"
-              name="verified"
-              checked={formData.verified}
-              onChange={handleChange}
-              className="checkbox checkbox-lg ml-2"
-            />
-          </label>
+            <div>
+              <label htmlFor="verified" className="flex items-center">
+                <p className="font-medium">Verified</p>
+                <input
+                  type="checkbox"
+                  id="verified"
+                  name="verified"
+                  checked={formData.verified}
+                  onChange={handleChange}
+                  className="checkbox checkbox-lg ml-2"
+                />
+              </label>
+            </div>
+          </div>
+          <div className="flex justify-center items-center border-2 rounded-lg">
+            <figure>
+              <div className="avatar">
+                <div className="w-24 rounded-full">
+                  <img
+                    src={formData.image ? formData.image : NoImageIcon.src}
+                  />
+                </div>
+              </div>
+            </figure>
+          </div>
         </div>
         <div className="grid grid-cols-2 gap-x-6">
           <div>
