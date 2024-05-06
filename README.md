@@ -44,6 +44,10 @@ npm run dev
 
 Visit [http://localhost:3000](http://localhost:3000) to see the application in action.
 
+## Demo
+
+![](https://github.com/AlexWasHeree/hemakes-teste-tecnico/blob/main/gif_hemakes-proccess-victor.gif)
+
 ## Font Optimization
 
 This project leverages [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
