@@ -10,7 +10,6 @@ This project focuses solely on the frontend aspect and does not utilize any APIs
 
 - User listing with CRUD operations
 - Frontend-centric development
-- Utilizes Next.js for server-side rendering
 - Styled using Tailwind CSS and DaisyUI
 
 ## Getting Started
