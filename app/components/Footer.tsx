@@ -4,7 +4,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="py-4">
+    <footer className="flex justify-center py-4 h-28 items-center">
       <div className="flex justify-center items-center gap-2">
         <p>Developed by Victor Alexandre</p>
         <Link href="https://github.com/AlexWasHeree/hemakes-teste-tecnico">

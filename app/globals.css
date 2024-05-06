@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  color: #474E59;
+}
+
+.btn {
+  @apply border-0 
+}
+
+.checkbox {
+  @apply border-blackMain checked:bg-main border-blackMain [--chkbg:theme(colors.main)]
+}
+
+.input {
+  @apply input-sm xxs:input-md
+}
+
+.select {
+  @apply select-sm xxs:select-md
+}

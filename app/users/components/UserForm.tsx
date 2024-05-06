@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NoImageIcon from '../../../public/icons/no-image-icon-6.png';
+import NoImageIcon from '../../../public/icons/no-image-icon.png';
+import BackIcon from '../../../public/icons/turn-back-icon.png';
 import { User, usersServices } from '@/services/users';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -85,19 +86,36 @@ const UserForm = ({ type, id, user }: UserFormProps) => {
   };
 
   return (
-    <div className="container mx-auto max-w-xl">
+    <div className="container mx-auto max-w-xl bg-whiteMain rounded-xl p-4 sm:p-8">
       <div className="flex justify-between mb-8">
-        <h1>{type === 'edit' ? 'Edit User' : 'Create User'}</h1>
+        <h1 className="text-lg font-bold text-blackMain">
+          {type === 'edit' ? 'Edit User' : 'Create User'}
+        </h1>
         {type === 'edit' ? (
           <Link href="/users/list">
-            <button className="btn btn-error w-48">Cancel</button>
+            <button className="btn bg-red-400 hover:bg-red-500 w-28 btn-sm xxs:btn-md xxs:w-48">
+              Cancel
+            </button>
           </Link>
-        ) : null}
+        ) : (
+          <div className="w-8 h-8">
+            <Link href="/users/list">
+              <img
+                src={BackIcon.src}
+                alt="Back Icon"
+                className="w-6 hover:w-7 transition-all"
+              />
+            </Link>
+          </div>
+        )}
       </div>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-2 gap-x-6">
           <div>
-            <label htmlFor="name" className="block mb-1 font-medium">
+            <label
+              htmlFor="name"
+              className="block mb-1 font-medium text-sm xxs:text-base"
+            >
               Name
             </label>
             <input
@@ -112,7 +130,10 @@ const UserForm = ({ type, id, user }: UserFormProps) => {
             />
           </div>
           <div>
-            <label htmlFor="role" className="block mb-1 font-medium">
+            <label
+              htmlFor="role"
+              className="block mb-1 font-medium text-sm xxs:text-base"
+            >
               Role
             </label>
             <select
@@ -120,7 +141,7 @@ const UserForm = ({ type, id, user }: UserFormProps) => {
               name="role"
               value={formData.role}
               onChange={handleChange}
-              className="select select-bordered w-full max-w-xl"
+              className="select select-bordered w-full max-w-xl "
               required
             >
               <option value="">Select Role</option>
@@ -134,7 +155,10 @@ const UserForm = ({ type, id, user }: UserFormProps) => {
         <div className="grid grid-cols-2 gap-x-6">
           <div className="space-y-6">
             <div>
-              <label htmlFor="image" className="block mb-1 font-medium">
+              <label
+                htmlFor="image"
+                className="block mb-1 font-medium text-sm xxs:text-base"
+              >
                 Image URL
               </label>
               <input
@@ -150,7 +174,10 @@ const UserForm = ({ type, id, user }: UserFormProps) => {
             </div>
 
             <div>
-              <label htmlFor="verified" className="flex items-center">
+              <label
+                htmlFor="verified"
+                className="flex items-center text-sm xxs:text-base"
+              >
                 <p className="font-medium">Verified</p>
                 <input
                   type="checkbox"
@@ -177,7 +204,10 @@ const UserForm = ({ type, id, user }: UserFormProps) => {
         </div>
         <div className="grid grid-cols-2 gap-x-6">
           <div>
-            <label htmlFor="status" className="block mb-1 font-medium">
+            <label
+              htmlFor="status"
+              className="block mb-1 font-medium text-sm xxs:text-base"
+            >
               Status
             </label>
             <select
@@ -195,7 +225,10 @@ const UserForm = ({ type, id, user }: UserFormProps) => {
             </select>
           </div>
           <div>
-            <label htmlFor="company" className="block mb-1 font-medium">
+            <label
+              htmlFor="company"
+              className="block mb-1 font-medium text-sm xxs:text-base"
+            >
               Company
             </label>
             <select
@@ -213,8 +246,11 @@ const UserForm = ({ type, id, user }: UserFormProps) => {
             </select>
           </div>
         </div>
-        <button type="submit" className="btn btn-primary w-full">
-          Submit
+        <button
+          type="submit"
+          className="btn btn-primary w-full btn-sm xxs:btn-md "
+        >
+          {type === 'create' ? 'Create' : 'Save'}
         </button>
       </form>
     </div>

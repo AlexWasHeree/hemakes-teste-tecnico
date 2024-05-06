@@ -28,9 +28,9 @@ const UserList = () => {
   };
 
   return (
-    <>
-      <div className="flex justify-between px-8 py-8">
-        <label className="input input-bordered flex items-center gap-2 w-48 input-sm sm:input-md ">
+    <div className="rounded-xl p-4 bg-whiteMain">
+      <div className="flex justify-between px-8 py-8 ">
+        <label className="input input-bordered flex items-center gap-2 w-48 ">
           <img src={IconSearch.src} alt="Search Icon" className="w-6 h-6" />
           <input
             id="filter"
@@ -43,21 +43,17 @@ const UserList = () => {
           />
         </label>
         <Link href="/users/create">
-          <button className="btn btn-primary w-16 btn-sm sm:btn-md sm:w-48">
+          <button className="btn btn-primary w-16 sm:w-48 btn-sm xxs:btn-md ">
             <img src={AddIcon.src} alt="Add icon" className="w-7" />
             <span className="hidden sm:block">Create User</span>
           </button>
         </Link>
       </div>
       <div className="overflow-x-auto">
-        <table className="table mb-20">
+        <table className="table mb-20 ">
           <thead>
-            <tr>
-              <th>
-                <label>
-                  <input type="checkbox" className="checkbox" />
-                </label>
-              </th>
+            <tr className="text-black">
+              <th></th>
               <th>Name</th>
               <th>Company</th>
               <th>Role</th>
@@ -90,7 +86,23 @@ const UserList = () => {
                 <td>{user.company}</td>
                 <td>{user.role}</td>
                 <td>{user.verified ? 'Yes' : 'No'}</td>
-                <td>{user.status}</td>
+                <td>
+                  {user.status === 'Active' && (
+                    <span className="py-[0.012rem] px-2 rounded-lg bg-green-300 text-green-700 font-semibold ">
+                      Active
+                    </span>
+                  )}
+                  {user.status === 'Banned' && (
+                    <span className="py-[0.012rem] px-2 rounded-lg bg-red-300 text-red-700 font-semibold ">
+                      Banned
+                    </span>
+                  )}
+                  {user.status === 'Idle' && (
+                    <span className="py-[0.012rem] px-2 rounded-lg bg-orange-300 text-orange-700 font-semibold ">
+                      Idle
+                    </span>
+                  )}
+                </td>
                 <th>
                   <TableMenu id={user.id} fetch={fetchData} />
                 </th>
@@ -99,7 +111,7 @@ const UserList = () => {
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 };
 

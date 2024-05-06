@@ -15,14 +15,18 @@ const Header = () => {
   return (
     <header className="py-4 px-6 flex justify-between items-center">
       <div>
-        <img src={Logo.src} alt="Logo" className="w-20" />
+        <img src={Logo.src} alt="Logo" className="w-20 " />
       </div>
       <div>
         <button
           onClick={handleClick}
           className="bg-white text-primary px-4 py-2 rounded-md"
         >
-          <img src={BackIcon.src} alt="Back icon" className="w-8" />
+          <img
+            src={BackIcon.src}
+            alt="Back icon"
+            className="w-8 hover:pl-1 transition-all"
+          />
         </button>
       </div>
     </header>

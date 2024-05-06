@@ -16,6 +16,13 @@ const config: Config = {
       screens: {
         xxs: '576px',
       },
+      colors: {
+        main: '#546E99',
+        mainHover: '#46618C',
+        secondary: '#BFD8FF',
+        blackMain: '#474E59',
+        whiteMain: '#E8EEF8',
+      },
     },
   },
   plugins: [require('daisyui')],
