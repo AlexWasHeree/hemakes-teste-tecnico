@@ -9,6 +9,7 @@ import { User, usersServices } from '@/services/users';
 
 const UserList = () => {
   const [usersDB, setUsersDB] = useState<User[]>([]);
+  const [filter, setFilter] = useState<string>('');
 
   const fetchData = () => {
     const users = usersServices.getAllUsers();
@@ -19,12 +20,27 @@ const UserList = () => {
     fetchData();
   }, []);
 
+  const handleChange = (e: any) => {
+    setFilter(e.target.value);
+    const returnedUsers = usersServices.filterUsers(e.target.value);
+    setUsersDB(returnedUsers);
+    console.log(returnedUsers);
+  };
+
   return (
     <div className="overflow-x-auto">
       <div className="flex justify-between px-8 py-8">
         <label className="input input-bordered flex items-center gap-2">
           <img src={IconSearch.src} alt="Search Icon" className="w-6 h-6" />
-          <input type="text" className="grow" placeholder="Search User..." />
+          <input
+            id="filter"
+            name="filter"
+            value={filter}
+            onChange={handleChange}
+            type="text"
+            className="grow"
+            placeholder="Search User..."
+          />
         </label>
         <Link href="/users/create">
           <button className="btn btn-primary">

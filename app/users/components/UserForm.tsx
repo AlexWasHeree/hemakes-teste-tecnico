@@ -120,6 +120,7 @@ const UserForm = ({ type, id, user }: UserFormProps) => {
               value={formData.role}
               onChange={handleChange}
               className="select select-bordered w-full max-w-xl"
+              required
             >
               <option value="">Select Role</option>
               <option value="UI Designer">UI Designer</option>
@@ -184,6 +185,7 @@ const UserForm = ({ type, id, user }: UserFormProps) => {
               value={formData.status}
               onChange={handleChange}
               className="select select-bordered w-full max-w-xl"
+              required
             >
               <option value="">Select Status</option>
               <option value="Banned">Banned</option>
@@ -201,6 +203,7 @@ const UserForm = ({ type, id, user }: UserFormProps) => {
               value={formData.company}
               onChange={handleChange}
               className="select select-bordered w-full"
+              required
             >
               <option value="">Select Company</option>
               <option value="Hemakes">Hemakes</option>

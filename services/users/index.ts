@@ -59,10 +59,28 @@ const getUserById = (id: number): User | undefined => {
   return users.find((user: User) => user.id === id);
 };
 
+const filterUsers = (searchValue: string): User[] => {
+  const storedUsersString = localStorage.getItem('users');
+  const users: User[] = storedUsersString ? JSON.parse(storedUsersString) : [];
+
+  const searchValueLower = searchValue.toLowerCase();
+
+  const filteredUsers = users.filter((user) => {
+    return Object.values(user).some(
+      (value) =>
+        typeof value === 'string' &&
+        value.toLowerCase().includes(searchValueLower),
+    );
+  });
+
+  return filteredUsers;
+};
+
 export const usersServices = {
   addUser,
   getAllUsers,
   editUser,
   deleteUser,
   getUserById,
+  filterUsers,
 };
