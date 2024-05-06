@@ -45,7 +45,7 @@ const editUser = (id: number, updatedUser: User) => {
   let users: User[] = storedUsersString ? JSON.parse(storedUsersString) : [];
   users = users.map((user: User) => (user.id === id ? updatedUser : user));
   localStorage.setItem('users', JSON.stringify(users));
-  console.log('User edited');
+  return 'User edited';
 };
 
 const deleteUser = (id: number) => {
