@@ -78,6 +78,15 @@ const filterUsers = (searchValue: string): User[] => {
   return filteredUsers;
 };
 
+const deleteManyUsers = (userIds: number[]) => {
+  const storedUsersString = localStorage.getItem('users');
+  const users: User[] = storedUsersString ? JSON.parse(storedUsersString) : [];
+
+  const filteredUsers = users.filter((user) => !userIds.includes(user.id));
+
+  localStorage.setItem('users', JSON.stringify(filteredUsers));
+};
+
 export const usersServices = {
   addUser,
   getAllUsers,
@@ -85,4 +94,5 @@ export const usersServices = {
   deleteUser,
   getUserById,
   filterUsers,
+  deleteManyUsers,
 };
