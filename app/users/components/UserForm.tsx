@@ -70,13 +70,14 @@ const UserForm = ({ type, id, user }: UserFormProps) => {
     };
 
     if (type === 'create') {
-      usersServices.addUser(newUser);
+      const responseCreat = usersServices.addUser(newUser);
+      alert(responseCreat);
     } else if (type === 'edit') {
       /* @ts-ignore: id can never be undefined as long as type is "edit" */
-      usersServices.editUser(id, editedUser);
+      const responseEdit = usersServices.editUser(id, editedUser);
+      alert(responseEdit);
     }
     const allUsers = usersServices.getAllUsers();
-    console.log('todos os usuarios:', allUsers);
 
     setTimeout(() => {
       router.push('/users/list');

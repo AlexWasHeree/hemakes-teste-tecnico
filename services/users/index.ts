@@ -22,14 +22,16 @@ const addUser = (user: User) => {
   const users: User[] = storedUsersString ? JSON.parse(storedUsersString) : [];
 
   const userExists = users.some(
-    (existingUser) => existingUser.name === user.name,
+    (existingUser) =>
+      existingUser.name.toLowerCase() === user.name.toLowerCase(),
   );
   if (userExists) {
-    return 'User already exists';
+    return 'User already exists [Name Duplicate]';
   }
 
   users.push(user);
   localStorage.setItem('users', JSON.stringify(users));
+  return 'User created';
 };
 
 const getAllUsers = (): User[] => {
